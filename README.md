@@ -31,10 +31,10 @@ AlmaLinux 9 installed from [wsl.almalinux.org](https://wsl.almalinux.org/9/)
 [Code](https://code.visualstudio.com/) with WSL extension
 
 Forwarded ports from Windows host to WSL in PowerShell:
-``powershell
+```powershell
 netsh interface portproxy add v4tov4 listenport=8080 listenaddress=0.0.0.0 connectport=8080 connectaddress=172.31.72.108
 netsh interface portproxy add v4tov4 listenport=29400 listenaddress=0.0.0.0 connectport=29400 connectaddress=172.31.72.108
-``
+```
 
 ## AlmaLinux 9 WSL Configuration:
 Enable [systemd](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#systemd-support)
@@ -97,7 +97,7 @@ Run:
 
 ```bash
 export DET_MASTER=40.124.116.172
-det user login determined` on first login
+det user login determined` # on first login
 det deploy local agent-up $DET_MASTER
 ```
 
