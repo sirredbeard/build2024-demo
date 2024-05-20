@@ -1,4 +1,4 @@
-name: mnist_pytorch_dist_random_search
+name: mnist_pytorch_distributed_adaptive_search
 hyperparameters:
   learning_rate:
     type: double
@@ -21,12 +21,10 @@ hyperparameters:
     minval: .2
     maxval: .8
 searcher:
-  name: random
-  metric: accuracy
+  name: adaptive_asha
+  metric: validation_loss
   smaller_is_better: true
-  max_trials: 2
+  max_trials: 10
   max_length:
-    epochs: 1
-resources:
-  slots_per_trial: 1
+    batches: 500
 entrypoint: python3 -m determined.launch.torch_distributed python3 train.py

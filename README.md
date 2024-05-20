@@ -1,20 +1,56 @@
 # build2024-demo
  
-Workstation Azure VM:
-Standard_D8s_v3 VM
-Standard security type
+Azure DevBox:
 Windows 11 Pro 23H2 Preview
-Allow Port 8080 Inbound
+Allowed Ports 300, 8080, 29400 Inbound
 
-Workstation Azure VM Configuration:
+Azure DevBox Configuration:
 WSL2 enabled: `wsl.exe --install --no-distribution`
 AlmaLinux 9 installed from [wsl.almalinux.org](https://wsl.almalinux.org/9/)
 [GitHub Desktop](https://desktop.github.com/)
 [Code](https://code.visualstudio.com/) with WSL extension
+Forwarded ports from Windows host to WSL in PowerShell:
+``powershell
+netsh interface portproxy add v4tov4 listenport=8080 listenaddress=0.0.0.0 connectport=8080 connectaddress=172.31.72.108
+netsh interface portproxy add v4tov4 listenport=29400 listenaddress=0.0.0.0 connectport=29400 connectaddress=172.31.72.108
+``
 
 AlmaLinux 9 WSL Configuration:
 Enable [systemd](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#systemd-support)
 Installed [Docker CE](https://docs.determined.ai/latest/setup-cluster/on-prem/requirements.html#install-docker)
 Install iproute and pip: `sudo dnf install python3-pip iproute -y`
 Upgrade pip: `pip install pip --upgrade`
-Installed [Determined](https://www.determined.ai/): `pip install determined`
+Installed [Determined AI](https://www.determined.ai/): `pip install determined`
+
+Azure GPU Node:
+Standard NV12ads A10 v5
+NVIDIA GPU-Optimized VMI with vGPU driver
+Installed [Determined AI](https://www.determined.ai/): `pip install determined`
+
+Steps:
+
+On Azure DevBox, clone repo, open in Code, use the WSL extension to connect to AlmaLinux, and in the built-in Code Terminal run:
+`det deploy local cluster-up --no-gpu`
+
+Open Determined web interface at `http://localhost:8080`.
+
+Change to our model training directory:
+`cd mnist_pytorch`
+
+Train the model locally on CPU using Adaptive ASHA hyperparameter algorithm:
+`det experiment create adaptive.yaml .`
+
+SSH to GPU Node:
+`ssh username@ip`
+
+Run:
+`export DET_MASTER=40.124.116.172`
+`det deploy local agent-up $DET_MASTER`
+
+Look for CUDA slot at `http://localhost:8080/det/clusters`.
+
+Disconnect from GPU Node:
+`exit`
+
+Run experiment on GPU Node:
+`det experiment create distributed_adaptive.yaml . --include .`
