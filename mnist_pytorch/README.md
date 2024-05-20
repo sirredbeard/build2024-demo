@@ -9,10 +9,8 @@ tutorial](https://github.com/pytorch/examples/tree/master/mnist).
 * **train.py**: Implementation of the core training loop workflow, the entrypoint for training the model.
 
 ### Configuration Files
-* **const.yaml**: Train the model with constant hyperparameter values.
-* **distributed.yaml**: Same as `const.yaml`, but trains the model with multiple GPUs (distributed training).
-* **dist_random.yaml**: Distributed training with a random grid search algorithm.
 * **adaptive.yaml**: Perform a hyperparameter search using Determined's state-of-the-art adaptive hyperparameter tuning algorithm.
+* **distributed_adaptive.yaml**: Same as `adaptive.yaml`, but trains the model with multiple GPUs (distributed training).
 
 ## Data
 This examples uses the MNIST dataset from the `torchvision` datasets subpackage. See 

@@ -25,6 +25,11 @@ Installed [Determined AI](https://www.determined.ai/): `pip install determined`
 Azure GPU Node:
 Standard NV12ads A10 v5
 NVIDIA GPU-Optimized VMI with vGPU driver
+VMI comes pre-configured with NVIDIA drivers and Docker.
+Remove outdated Python libraries managed by apt:
+`sudo apt remove python3-requests python3-urllib3 python3-cryptography`
+Upgrade pip:
+`pip install pip --upgrade`
 Installed [Determined AI](https://www.determined.ai/): `pip install determined`
 
 Steps:
@@ -40,17 +45,21 @@ Change to our model training directory:
 Train the model locally on CPU using Adaptive ASHA hyperparameter algorithm:
 `det experiment create adaptive.yaml .`
 
-SSH to GPU Node:
-`ssh username@ip`
+SSH to GPU Node 1:
+`ssh Hayden@40.124.169.220`
 
 Run:
 `export DET_MASTER=40.124.116.172`
+`det user login determined` on first login
 `det deploy local agent-up $DET_MASTER`
 
 Look for CUDA slot at `http://localhost:8080/det/clusters`.
 
-Disconnect from GPU Node:
+Repeat for GPU Node 2:
+`ssh Hayden@40.124.169.220`
+
+Disconnect from GPU Nodes:
 `exit`
 
-Run experiment on GPU Node:
+Run experiment on GPU Nodes:
 `det experiment create distributed_adaptive.yaml . --include .`
