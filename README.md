@@ -56,7 +56,7 @@ Run:
 Look for CUDA slot at `http://localhost:8080/det/clusters`.
 
 Repeat for GPU Node 2:
-`ssh Hayden@40.124.169.220`
+`ssh Hayden@40.124.118.74`
 
 Disconnect from GPU Nodes:
 `exit`

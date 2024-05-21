@@ -54,6 +54,4 @@ resources:
 entrypoint: python3 -m determined.launch.torch_distributed python3 train.py
 ```
 
-## Results
-Training the model with the hyperparameter settings in `const.yaml` should yield
-a validation accuracy of ~97%. 
+
