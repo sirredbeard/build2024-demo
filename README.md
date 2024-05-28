@@ -2,9 +2,9 @@
 
 We will be training a model on a dataset of handwriting samples, to build a model for handwriting detection, OCR, using PyTorch.
 
-This is a relatively small model so we can fit training into the length of this demo.
+This is a relatively small dataset so we can fit training into the length of this demo.
 
-We will train on the Azure Dev Box on the CPU and review the results.
+We will train on the Azure Dev Box on just a CPU and review the results.
 
 We will then connect our Azure GPU VMs to our Azure Dev Box and re-run the training with distributed training enabled, then compare the results.
 
@@ -22,7 +22,9 @@ Allowed Ports 300, 8080, 29400 Inbound
 
 ## Azure DevBox Configuration:
 
-WSL2 enabled: `wsl.exe --install --no-distribution`
+WSL2 enabled: 
+
+`wsl.exe --install --no-distribution`
 
 AlmaLinux 9 installed from [wsl.almalinux.org](https://wsl.almalinux.org/9/)
 
@@ -97,7 +99,7 @@ Run:
 
 ```bash
 export DET_MASTER=40.124.116.172
-det user login determined` # on first login
+det user login determined # on first login
 det deploy local agent-up $DET_MASTER
 ```
 
